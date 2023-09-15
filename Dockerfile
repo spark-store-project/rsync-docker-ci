@@ -9,6 +9,7 @@ RUN apt-get update && \
 
 # 复制nginx配置文件和其他文件
 COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /etc/nginx/logs
 COPY crontab /etc/cron.d/rsync-cron
 COPY status.py /status.py
 COPY start.sh /start.sh
@@ -27,5 +28,6 @@ ENV TZ Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 启动cron、Python脚本和其他任务
-CMD ["sh", "-c", "cron && python3 /status.py && /start.sh"]
+CMD ["/start.sh"]
+
 
