@@ -3,7 +3,7 @@ FROM nginx:latest
 
 # 安装必要的软件包
 RUN apt-get update && \
-    apt-get install -y rsync sshpass python3 python3-pip cron && \
+    apt-get install -y rsync sshpass python3 python3-pip cron pgrep ps nano && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
