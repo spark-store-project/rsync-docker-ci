@@ -23,7 +23,7 @@
 - `SPARKUSER`: 用户名，用于信息上报认证。
 - `SPARKPASSWORD`: 密码，用于信息认证。
 
-示例：
+示例：请注意修改端口转发和同步目录，例子里是：/home/dir
 
 ```bash
 docker run -d --restart=always --name=spark-server -e SPARKUSER=sparkuser -e SPARKPASSWORD=sparkpassword -p 80:80 -v  /home/dir:/container-workdir  uniartisan/spark-software-server:latest
@@ -50,7 +50,7 @@ docker build -t spark-software-server .
 2. **运行容器**
 
 ```bash
-docker run -e USER=sparkuser -e PASSWORD=sparkpassword -p 80:80 spark-software-server
+docker run -e SPARKUSER=sparkuser -e SPARKPASSWORD=sparkpassword -p 80:80 spark-software-server
 ```
 
 3. **推送到DockerHub**
