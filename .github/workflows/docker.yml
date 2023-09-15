@@ -1,0 +1,45 @@
+name: Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+        - cron:  '0 1 1 * *'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    # Run steps on a matrix of 4 arch/distro combinations
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            distro: ubuntu-latest
+          - arch: armv7
+            distro: ubuntu-latest
+          - arch: amd64
+            distro: ubuntu-latest
+          - arch: riscv64
+            distro: ubuntu_latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+
+    - name: Build and push Docker image
+      env:
+        IMAGE_TAG: ${{ github.sha }} # 用于标记容器版本号
+      run: |
+        docker build -t uniartisan/spark-software-server:latest .
+        docker push uniartisan/spark-software-server:latest
+        
+
