@@ -14,10 +14,12 @@ COPY crontab /etc/cron.d/rsync-cron
 COPY status.py /status.py
 COPY start.sh /start.sh
 COPY rsync.sh /rsync.sh
+COPY password /password
 
 # 添加执行权限
 RUN chmod +x /start.sh
 RUN chmod +x /rsync.sh
+RUN chmod 600 /password
 
 # 创建和设置cron计划任务
 RUN chmod 0644 /etc/cron.d/rsync-cron

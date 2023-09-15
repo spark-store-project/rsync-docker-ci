@@ -10,7 +10,7 @@ python3 /status.py > /dev/null 2>&1 &
 mkdir -p ~/.ssh/
 ssh-keyscan -H zunyun01.store.deepinos.org.cn >> ~/.ssh/known_hosts
 
-nohup rsync -rtlvH --perms --delete-after --delay-updates --safe-links --timeout 120 --progress sdu@zunyun01.store.deepinos.org.cn::spark-store /container-workdir > /dev/null 2>&1 &
+nohup rsync -rtlvH --perms --delete-after --delay-updates --safe-links --timeout 120 --progress --password-file=/password sdu@zunyun01.store.deepinos.org.cn::spark-store /container-workdir > /dev/null 2>&1 &
 
 
 
